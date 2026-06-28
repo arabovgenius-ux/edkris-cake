@@ -1,1 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EXAMPLE_CAKES — Кофейня & Десерты</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink: #FF2D78;
+      --pink-light: #FFE0EC;
+      --pink-mid: #FF6FAA;
+      --blush: #FFF5F8;
+      --dark: #1A0A12;
+      --gray: #6B6B7A;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--blush); color: var(--dark); }
+    h1, h2, h3, .brand { font-family: 'Montserrat', sans-serif; }
+    .brand-text { color: var(--pink); }
 
+    /* NAV */
+    nav { background: #fff; border-bottom: 1px solid #FFE0EC; position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-logo { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.2rem; letter-spacing: 0.08em; color: var(--pink); text-decoration: none; }
+    .nav-links a { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em; color: var(--dark); text-decoration: none; margin-left: 2rem; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--pink); }
+
+    /* HERO */
+    .hero { position: relative; overflow: hidden; background: #fff; min-height: 90vh; display: flex; align-items: center; }
+    .hero-bg-blob { position: absolute; top: -120px; right: -120px; width: 600px; height: 600px; background: radial-gradient(circle, #FFE0EC 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+    .hero-bg-blob2 { position: absolute; bottom: -80px; left: -80px; width: 400px; height: 400px; background: radial-gradient(circle, #FFE0EC 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+    .hero-inner { max-width: 1200px; margin: 0 auto; padding: 4rem 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 1; }
+    .hero-eyebrow { font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pink); margin-bottom: 1.2rem; }
+    .hero-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.05; color: var(--dark); margin-bottom: 1.5rem; }
+    .hero-title span { color: var(--pink); }
+    .hero-sub { font-size: 1.05rem; color: var(--gray); line-height: 1.7; max-width: 420px; margin-bottom: 2.5rem; }
+    .btn-primary { display: inline-block; background: var(--pink); color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.06em; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 30px rgba(255,45,120,0.35); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(255,45,120,0.45); }
+    .btn-secondary { display: inline-block; border: 2px solid var(--pink); color: var(--pink); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.06em; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; margin-left: 1rem; transition: all 0.2s; }
+    .btn-secondary:hover { background: var(--pink); color: #fff; }
+    .hero-image-box { background: #F0F0F0; border-radius: 24px; aspect-ratio: 4/5; display: flex; align-items: center; justify-content: center; border: 2px dashed #C8C8D0; }
+    .hero-image-box span { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2rem; letter-spacing: 0.15em; color: var(--pink); opacity: 0.5; }
+
+    /* FEATURES */
+    .features { max-width: 1200px; margin: 0 auto; padding: 5rem 1.5rem; }
+    .section-eyebrow { font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.75rem; }
+    .section-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(1.8rem, 3.5vw, 3rem); color: var(--dark); margin-bottom: 0.5rem; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+    .feature-card { background: #fff; border-radius: 20px; padding: 2rem; box-shadow: 0 4px 30px rgba(255,45,120,0.08); transition: transform 0.2s, box-shadow 0.2s; }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(255,45,120,0.16); }
+    .feature-icon { width: 52px; height: 52px; background: var(--pink-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.2rem; }
+    .feature-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--dark); margin-bottom: 0.6rem; }
+    .feature-desc { font-size: 0.9rem; color: var(--gray); line-height: 1.65; }
+
+    /* HIGHLIGHTS */
+    .highlights { background: var(--pink); padding: 5rem 1.5rem; }
+    .highlights-inner { max-width: 1200px; margin: 0 auto; }
+    .highlights h2 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(2rem, 4vw, 3.5rem); color: #fff; margin-bottom: 1rem; }
+    .highlights p { color: rgba(255,255,255,0.8); font-size: 1.05rem; max-width: 520px; margin-bottom: 2.5rem; }
+    .highlights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .highlight-card { background: rgba(255,255,255,0.12); backdrop-filter: blur(4px); border-radius: 18px; overflow: hidden; }
+    .highlight-img-box { background: rgba(255,255,255,0.08); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(255,255,255,0.15); }
+    .highlight-img-box span { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.4rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.4); }
+    .highlight-info { padding: 1.2rem; }
+    .highlight-info h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1rem; color: #fff; margin-bottom: 0.3rem; }
+    .highlight-info p { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+
+    /* HOURS STRIP */
+    .hours-strip { background: #fff; padding: 3rem 1.5rem; }
+    .hours-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem; }
+    .hours-text h2 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2rem; color: var(--dark); margin-bottom: 0.5rem; }
+    .hours-text p { color: var(--gray); }
+    .hours-badges { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hours-badge { background: var(--pink-light); border-radius: 12px; padding: 1rem 1.5rem; text-align: center; }
+    .hours-badge .day { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--pink); text-transform: uppercase; margin-bottom: 0.25rem; }
+    .hours-badge .time { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.1rem; color: var(--dark); }
+
+    /* DRAFT NOTE */
+    .draft-note { background: #FFF9E6; border-left: 4px solid #F5A623; margin: 3rem auto; max-width: 1200px; margin-left: auto; margin-right: auto; border-radius: 0 12px 12px 0; padding: 1.5rem 2rem; }
+    .draft-note h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1rem; color: #7A5000; margin-bottom: 0.75rem; }
+    .draft-note ul { list-style: none; padding: 0; }
+    .draft-note li { font-size: 0.9rem; color: #5A3A00; line-height: 1.6; padding-left: 1.2rem; position: relative; margin-bottom: 0.3rem; }
+    .draft-note li::before { content: "→"; position: absolute; left: 0; color: #F5A623; font-weight: 700; }
+
+    /* FOOTER */
+    footer { background: var(--dark); padding: 3rem 1.5rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .footer-logo { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.1rem; letter-spacing: 0.08em; color: var(--pink); }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: 0.85rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--pink); }
+    .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-image-box { aspect-ratio: 16/9; }
+      .features-grid { grid-template-columns: 1fr; }
+      .highlights-grid { grid-template-columns: 1fr; }
+      .hours-inner { flex-direction: column; align-items: flex-start; }
+      .btn-secondary { margin-left: 0; margin-top: 0.75rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">EXAMPLE_CAKES</a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Главная</a>
+      <a href="menu.html">Меню</a>
+      <a href="contacts.html">Контакты</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-blob"></div>
+  <div class="hero-bg-blob2"></div>
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">Кофейня & Десерты · Коломна</p>
+      <h1 class="hero-title">
+        Место, где<br/><span>вкус</span> живёт<br/>в каждой детали
+      </h1>
+      <p class="hero-sub">Авторские десерты, напитки ручной работы и атмосфера, в которую хочется возвращаться снова и снова.</p>
+      <div style="display:flex; flex-wrap:wrap; gap:0.75rem;">
+        <a href="menu.html" class="btn-primary">Смотреть меню</a>
+        <a href="contacts.html" class="btn-secondary">Как нас найти</a>
+      </div>
+    </div>
+    <div class="hero-image-box">
+      <span>ФОТО</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <p class="section-eyebrow">Почему мы</p>
+  <h2 class="section-title">Всё с душой,<br/>ничего лишнего</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">☕</div>
+      <div class="feature-title">Кофе с характером</div>
+      <div class="feature-desc">Зерно обжарки specialty, молоко из местной фермы, каждый напиток — результат точного баланса.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎂</div>
+      <div class="feature-title">Авторские десерты</div>
+      <div class="feature-desc">Торты, макаронсы, бенто и круассаны — рецепты собственной разработки, без компромиссов по составу.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌸</div>
+      <div class="feature-title">Атмосфера уюта</div>
+      <div class="feature-desc">Пространство, продуманное до мелочей: свет, ароматы, музыка — всё создаёт ощущение дома.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section class="highlights">
+  <div class="highlights-inner">
+    <h2>Хиты сезона</h2>
+    <p>Попробуйте то, о чём говорит весь город — наши самые любимые позиции этого сезона.</p>
+    <a href="menu.html" class="btn-primary" style="background:#fff; color:var(--pink); box-shadow:none; margin-bottom:3rem; display:inline-block;">Полное меню →</a>
+    <div class="highlights-grid">
+      <div class="highlight-card">
+        <div class="highlight-img-box"><span>ФОТО</span></div>
+        <div class="highlight-info">
+          <h3>Фисташковый американо</h3>
+          <p>Эспрессо · Фисташковая паста · Ваниль</p>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-img-box"><span>ФОТО</span></div>
+        <div class="highlight-info">
+          <h3>Торт «Сникерс»</h3>
+          <p>Шоколадный бисквит · Карамель · Арахис</p>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-img-box"><span>ФОТО</span></div>
+        <div class="highlight-info">
+          <h3>Круассан с фисташкой</h3>
+          <p>Хрустящее тесто · Фисташковый крем · Клубника</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section class="hours-strip">
+  <div class="hours-inner">
+    <div class="hours-text">
+      <h2>Мы открыты для вас</h2>
+      <p>Заходите за утренним кофе или вечерним десертом</p>
+    </div>
+    <div class="hours-badges">
+      <div class="hours-badge">
+        <div class="day">Пн — Пт</div>
+        <div class="time">8:00 — 20:00</div>
+      </div>
+      <div class="hours-badge">
+        <div class="day">Сб — Вс</div>
+        <div class="time">10:00 — 21:00</div>
+      </div>
+    </div>
+    <a href="https://t.me/edkris_cakes" target="_blank" class="btn-primary">Написать в Telegram</a>
+  </div>
+</section>
+
+<!-- DRAFT NOTE -->
+<div style="padding: 0 1.5rem;">
+  <div class="draft-note">
+    <h3>📋 ЧТО ДОБАВИТЬ ДЛЯ ФИНАЛЬНОЙ ВЕРСИИ САЙТА</h3>
+    <ul>
+      <li><strong>Фотографии блюд (hero + карточки меню):</strong> макро-съёмка на нейтральном фоне, дневной свет или студийный свет. Форматы: JPG/WebP, минимум 1200×1200 px для карточек, 1800×1200 для hero.</li>
+      <li><strong>Видео-ролик для hero:</strong> короткое (10–20 сек) ambient-видео — кофе льётся, десерт разрезают, атмосфера зала. Можно зациклить без звука.</li>
+      <li><strong>Фото интерьера кофейни:</strong> 3–5 широких кадров зала, витрины, деталей декора — для раздела «О нас».</li>
+      <li><strong>Логотип в SVG:</strong> загрузить векторный файл логотипа для шапки и футера вместо текста.</li>
+      <li><strong>Реальный адрес и карта:</strong> заменить заглушку на виджет Яндекс.Карт или Google Maps с меткой.</li>
+      <li><strong>Фото команды / бариста:</strong> живые портреты — добавляет доверия и тепла бренду.</li>
+      <li><strong>Отзывы (раздел):</strong> скриншоты или текст реальных отзывов с Google / Яндекс / Instagram-хайлайтс «Отзывы».</li>
+      <li><strong>Сертификат «Хорошее место» от Яндекса:</strong> использовать как бейдж доверия на главной странице.</li>
+      <li><strong>Декор для акций/сезонного меню:</strong> плашки, стикеры, анимированные бейджи («Хит сезона», «Новинка», «Лимитировано»).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">EXAMPLE_CAKES</div>
+    <div class="footer-links">
+      <a href="index.html">Главная</a>
+      <a href="menu.html">Меню</a>
+      <a href="contacts.html">Контакты</a>
+      <a href="https://t.me/edkris_cakes" target="_blank">Telegram</a>
+    </div>
+    <div class="footer-copy">© 2025 EXAMPLE_CAKES · Коломна</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,530 +1,92 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Меню — EXAMPLE_CAKES</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --pink: #FF2D78;
-      --pink-light: #FFE0EC;
-      --pink-mid: #FF6FAA;
-      --blush: #FFF5F8;
-      --dark: #1A0A12;
-      --gray: #6B6B7A;
-    }
-    * { box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: var(--blush); color: var(--dark); }
-    h1, h2, h3, .brand { font-family: 'Montserrat', sans-serif; }
-
-    /* NAV */
-    nav { background: #fff; border-bottom: 1px solid #FFE0EC; position: sticky; top: 0; z-index: 200; }
-    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 64px; }
-    .nav-logo { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.2rem; letter-spacing: 0.08em; color: var(--pink); text-decoration: none; }
-    .nav-links a { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em; color: var(--dark); text-decoration: none; margin-left: 2rem; transition: color 0.2s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--pink); }
-
-    /* PAGE HEADER */
-    .page-header { background: #fff; padding: 3rem 1.5rem 2rem; border-bottom: 1px solid #FFE0EC; }
-    .page-header-inner { max-width: 1200px; margin: 0 auto; }
-    .page-eyebrow { font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.5rem; }
-    .page-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(2rem, 4vw, 3rem); color: var(--dark); }
-
-    /* CATEGORY TABS */
-    .category-bar { background: #fff; border-bottom: 2px solid #FFE0EC; position: sticky; top: 64px; z-index: 150; }
-    .category-bar-inner { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
-    .category-bar-inner::-webkit-scrollbar { display: none; }
-    .cat-tab { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.05em; padding: 1rem 1.2rem; color: var(--gray); cursor: pointer; white-space: nowrap; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
-    .cat-tab:hover { color: var(--pink); }
-    .cat-tab.active { color: var(--pink); border-bottom-color: var(--pink); }
-
-    /* SUB TABS (drinks) */
-    .sub-tabs { max-width: 1200px; margin: 1.5rem auto 0; padding: 0 1.5rem; display: flex; gap: 0.6rem; flex-wrap: wrap; }
-    .sub-tab { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.04em; padding: 0.55rem 1.1rem; border-radius: 50px; border: 2px solid #FFE0EC; color: var(--gray); cursor: pointer; transition: all 0.18s; white-space: nowrap; }
-    .sub-tab:hover { border-color: var(--pink-mid); color: var(--pink); }
-    .sub-tab.active { background: var(--pink); border-color: var(--pink); color: #fff; }
-
-    /* MENU CONTENT */
-    .menu-content { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem 6rem; }
-    .section-label { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.5rem; color: var(--dark); margin: 2.5rem 0 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--pink-light); }
-
-    /* ITEM CARDS */
-    .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
-    .item-card { background: #fff; border-radius: 20px; box-shadow: 0 4px 24px rgba(255,45,120,0.09); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
-    .item-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(255,45,120,0.18); }
-    .item-img-box { background: #F0F0F0; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; border-bottom: 2px dashed #C8C8D0; flex-shrink: 0; }
-    .item-img-box span { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: 0.15em; color: var(--pink); opacity: 0.45; }
-    .item-body { padding: 1.2rem; display: flex; flex-direction: column; flex: 1; }
-    .item-name { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1rem; color: var(--dark); margin-bottom: 0.3rem; }
-    .item-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.55; flex: 1; margin-bottom: 1rem; }
-    .item-footer { display: flex; align-items: center; justify-content: space-between; }
-    .item-price { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.1rem; color: var(--pink); }
-    .item-volume { font-size: 0.78rem; color: var(--gray); }
-    .add-btn { background: var(--pink-light); color: var(--pink); border: none; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.85rem; padding: 0.5rem 1.1rem; cursor: pointer; transition: all 0.18s; }
-    .add-btn:hover { background: var(--pink); color: #fff; }
-
-    /* CART */
-    .cart-fab { position: fixed; bottom: 2rem; right: 2rem; z-index: 300; }
-    .cart-btn { background: var(--pink); color: #fff; border: none; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.9rem; padding: 1rem 1.5rem; cursor: pointer; box-shadow: 0 8px 30px rgba(255,45,120,0.45); display: flex; align-items: center; gap: 0.6rem; transition: transform 0.2s, box-shadow 0.2s; }
-    .cart-btn:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 12px 40px rgba(255,45,120,0.55); }
-    .cart-count { background: #fff; color: var(--pink); border-radius: 50px; padding: 0.1rem 0.5rem; font-size: 0.85rem; font-weight: 900; min-width: 24px; text-align: center; }
-
-    /* CART DRAWER */
-    .cart-overlay { position: fixed; inset: 0; background: rgba(26,10,18,0.5); z-index: 400; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
-    .cart-overlay.open { opacity: 1; pointer-events: all; }
-    .cart-drawer { position: fixed; right: 0; top: 0; bottom: 0; width: min(420px, 100vw); background: #fff; z-index: 500; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); box-shadow: -8px 0 40px rgba(255,45,120,0.12); }
-    .cart-drawer.open { transform: translateX(0); }
-    .cart-header { padding: 1.5rem; border-bottom: 2px solid var(--pink-light); display: flex; align-items: center; justify-content: space-between; }
-    .cart-header h2 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.3rem; color: var(--dark); }
-    .cart-close { background: var(--pink-light); border: none; color: var(--pink); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; font-weight: 900; transition: all 0.18s; }
-    .cart-close:hover { background: var(--pink); color: #fff; }
-    .cart-items { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; }
-    .cart-empty { text-align: center; padding: 3rem 1rem; color: var(--gray); }
-    .cart-empty p { font-family: 'Montserrat', sans-serif; font-weight: 700; margin-top: 0.5rem; }
-    .cart-item { display: flex; align-items: center; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid #FFE0EC; }
-    .cart-item-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--dark); flex: 1; }
-    .cart-item-price { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 0.9rem; color: var(--pink); }
-    .qty-control { display: flex; align-items: center; gap: 0.4rem; }
-    .qty-btn { background: var(--pink-light); border: none; color: var(--pink); width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 1rem; font-weight: 900; display: flex; align-items: center; justify-content: center; transition: all 0.15s; line-height: 1; }
-    .qty-btn:hover { background: var(--pink); color: #fff; }
-    .qty-num { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.9rem; min-width: 20px; text-align: center; }
-    .cart-footer { padding: 1.5rem; border-top: 2px solid var(--pink-light); }
-    .cart-total { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
-    .cart-total span { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.1rem; color: var(--dark); }
-    .cart-total .total-sum { font-size: 1.4rem; color: var(--pink); }
-    .tg-order-btn { display: flex; align-items: center; justify-content: center; gap: 0.6rem; width: 100%; background: var(--pink); color: #fff; border: none; border-radius: 14px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1rem; letter-spacing: 0.04em; padding: 1.1rem; cursor: pointer; text-decoration: none; box-shadow: 0 6px 24px rgba(255,45,120,0.4); transition: transform 0.2s, box-shadow 0.2s; }
-    .tg-order-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 10px 36px rgba(255,45,120,0.55); }
-    .tg-order-btn svg { width: 22px; height: 22px; flex-shrink: 0; }
-
-    /* HIDDEN */
-    .menu-section { display: none; }
-    .menu-section.active { display: block; }
-    .sub-section { display: none; }
-    .sub-section.active { display: block; }
-
-    @media (max-width: 768px) {
-      .items-grid { grid-template-columns: 1fr 1fr; }
-      .nav-links { display: none; }
-    }
-    @media (max-width: 480px) {
-      .items-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXAMPLE_CAKES | Карточки Блюд</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandPink: '#FF1493',
+                        brandCream: '#FAF6F0',
+                        brandCardBg: '#FFFFFF',
+                        brandGray: '#E5E7EB'
+                    },
+                    fontFamily: {
+                        title: ['"Great Vibes"', 'cursive'],
+                        body: ['"Open Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
+<body class="bg-brandCream font-body text-stone-800 antialiased">
 
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">EXAMPLE_CAKES</a>
-    <div class="nav-links">
-      <a href="index.html">Главная</a>
-      <a href="menu.html" class="active">Меню</a>
-      <a href="contacts.html">Контакты</a>
-    </div>
-  </div>
-</nav>
+    <header class="bg-brandCream/90 border-b border-brandPink/10 px-6 py-4 flex justify-between items-center">
+        <a href="index.html" class="font-title text-4xl font-bold text-brandPink tracking-wider">EXAMPLE_CAKES</a>
+        <a href="index.html" class="text-sm font-semibold tracking-widest uppercase border-b border-brandPink/40 pb-1 hover:text-brandPink transition-all">Назад на главную</a>
+    </header>
 
-<!-- PAGE HEADER -->
-<div class="page-header">
-  <div class="page-header-inner">
-    <p class="page-eyebrow">Кофейня EXAMPLE_CAKES</p>
-    <h1 class="page-title">Наше меню</h1>
-  </div>
-</div>
-
-<!-- CATEGORY TABS -->
-<div class="category-bar">
-  <div class="category-bar-inner">
-    <div class="cat-tab active" onclick="switchCat('drinks')">☕ Напитки</div>
-    <div class="cat-tab" onclick="switchCat('desserts')">🍰 Десерты</div>
-    <div class="cat-tab" onclick="switchCat('cakes')">🎂 Торты</div>
-    <div class="cat-tab" onclick="switchCat('croissants')">🥐 Круассаны</div>
-  </div>
-</div>
-
-<!-- DRINKS SECTION -->
-<div id="drinks" class="menu-section active">
-  <div class="sub-tabs">
-    <div class="sub-tab active" onclick="switchSub('drinks','coffee')">Кофе</div>
-    <div class="sub-tab" onclick="switchSub('drinks','tea')">Чаи</div>
-    <div class="sub-tab" onclick="switchSub('drinks','nocoffee')">Не кофе</div>
-    <div class="sub-tab" onclick="switchSub('drinks','summer')">☀️ Летние хиты</div>
-  </div>
-  <div class="menu-content">
-
-    <!-- COFFEE -->
-    <div id="drinks-coffee" class="sub-section active">
-      <div class="section-label">Кофе</div>
-      <div class="items-grid" id="coffee-grid"></div>
-    </div>
-
-    <!-- TEA -->
-    <div id="drinks-tea" class="sub-section">
-      <div class="section-label">Чаи фруктовые</div>
-      <div class="items-grid" id="tea-grid"></div>
-    </div>
-
-    <!-- NO COFFEE -->
-    <div id="drinks-nocoffee" class="sub-section">
-      <div class="section-label">Не кофе</div>
-      <div class="items-grid" id="nocoffee-grid"></div>
-    </div>
-
-    <!-- SUMMER -->
-    <div id="drinks-summer" class="sub-section">
-      <div class="section-label">☀️ Летние хиты — Сезонное меню</div>
-      <div class="items-grid" id="summer-grid"></div>
-    </div>
-  </div>
-</div>
-
-<!-- DESSERTS SECTION -->
-<div id="desserts" class="menu-section">
-  <div class="sub-tabs">
-    <div class="sub-tab active" onclick="switchSub('desserts','macarons')">Макаронсы</div>
-    <div class="sub-tab" onclick="switchSub('desserts','bento')">Бенто-торты</div>
-  </div>
-  <div class="menu-content">
-    <div id="desserts-macarons" class="sub-section active">
-      <div class="section-label">Макаронсы</div>
-      <div class="items-grid" id="macarons-grid"></div>
-    </div>
-    <div id="desserts-bento" class="sub-section">
-      <div class="section-label">Бенто-торты</div>
-      <div class="items-grid" id="bento-grid"></div>
-    </div>
-  </div>
-</div>
-
-<!-- CAKES SECTION -->
-<div id="cakes" class="menu-section">
-  <div class="menu-content">
-    <div class="section-label">Торты на заказ</div>
-    <p style="color:var(--gray);font-size:0.9rem;margin-bottom:1.5rem;">Торты от 1 кг · 2 500 ₽ за 1 кг · Заказ за 3–5 дней</p>
-    <div class="items-grid" id="cakes-grid"></div>
-  </div>
-</div>
-
-<!-- CROISSANTS SECTION -->
-<div id="croissants" class="menu-section">
-  <div class="menu-content">
-    <div class="section-label">Круассаны</div>
-    <div class="items-grid" id="croissants-grid"></div>
-  </div>
-</div>
-
-<!-- CART FAB -->
-<div class="cart-fab">
-  <button class="cart-btn" onclick="openCart()" id="cartFab" style="display:none;">
-    🛒 Корзина <span class="cart-count" id="cartCount">0</span>
-  </button>
-</div>
-
-<!-- CART OVERLAY -->
-<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
-
-<!-- CART DRAWER -->
-<div class="cart-drawer" id="cartDrawer">
-  <div class="cart-header">
-    <h2>🛒 Ваш заказ</h2>
-    <button class="cart-close" onclick="closeCart()">✕</button>
-  </div>
-  <div class="cart-items" id="cartItems">
-    <div class="cart-empty">
-      <div style="font-size:2rem;">🧁</div>
-      <p>Корзина пуста</p>
-    </div>
-  </div>
-  <div class="cart-footer" id="cartFooter" style="display:none;">
-    <div class="cart-total">
-      <span>Итого:</span>
-      <span class="total-sum" id="cartTotal">0 ₽</span>
-    </div>
-    <a id="tgOrderBtn" href="#" target="_blank" class="tg-order-btn">
-      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-      </svg>
-      Заказать в Telegram
-    </a>
-  </div>
-</div>
-
-<footer style="background:#1A0A12;padding:3rem 1.5rem;margin-top:4rem;">
-  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
-    <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:0.08em;color:#FF2D78;">EXAMPLE_CAKES</div>
-    <div style="display:flex;gap:2rem;">
-      <a href="index.html" style="font-size:0.85rem;color:rgba(255,255,255,0.5);text-decoration:none;">Главная</a>
-      <a href="menu.html" style="font-size:0.85rem;color:rgba(255,255,255,0.5);text-decoration:none;">Меню</a>
-      <a href="contacts.html" style="font-size:0.85rem;color:rgba(255,255,255,0.5);text-decoration:none;">Контакты</a>
-    </div>
-    <div style="font-size:0.8rem;color:rgba(255,255,255,0.3);">© 2025 EXAMPLE_CAKES · Коломна</div>
-  </div>
-</footer>
-
-<script>
-const MENU = {
-  coffee: [
-    { name: "Эспрессо", desc: "Классический насыщенный эспрессо из зерна specialty-обжарки", price: 170, vol: "0,06 л" },
-    { name: "Американо", desc: "Эспрессо с горячей водой — чистый кофейный вкус", price: 200, vol: "0,3 л" },
-    { name: "Капучино", desc: "Эспрессо с бархатистой молочной пенкой", price: 250, vol: "0,3 л" },
-    { name: "Латте", desc: "Нежный кофе с большим количеством взбитого молока", price: 260, vol: "0,4 л" },
-    { name: "Флэт Уайт", desc: "Двойной эспрессо с бархатным молоком", price: 270, vol: "0,2 л" },
-    { name: "Раф классический", desc: "Взбитый кофе со сливками и ванильным сахаром", price: 290, vol: "0,3 л" },
-    { name: "Раф лавандовый", desc: "Взбитый кофе со сливками и лавандовым сиропом", price: 310, vol: "0,3 л" },
-    { name: "Раф соленая карамель", desc: "Раф с карамелью и морской солью", price: 310, vol: "0,3 л" },
-    { name: "Фисташковый латте", desc: "Латте с домашней фисташковой пастой", price: 330, vol: "0,4 л" },
-    { name: "Кокосовый латте", desc: "Латте на кокосовом молоке с нежным ароматом", price: 310, vol: "0,4 л" },
-    { name: "Корица-апельсин латте", desc: "Согревающий латте с пряной ноткой корицы и апельсина", price: 300, vol: "0,4 л" },
-    { name: "Доппио", desc: "Двойной эспрессо, крепкий и насыщенный", price: 200, vol: "0,12 л" },
-    { name: "Айс-латте", desc: "Холодный кофе с молоком на льду", price: 320, vol: "0,3 л" },
-    { name: "Фисташковый американо (айс)", desc: "Холодный американо с фисташковой пастой и ванильным сиропом", price: 370, vol: "0,3 л" },
-    { name: "Бамбл", desc: "Эспрессо, апельсиновый фреш, карамельный сироп, лёд", price: 360, vol: "0,3 л" },
-    { name: "Кофе с тоником", desc: "Эспрессо с тоником на льду — освежающий дуэт", price: 290, vol: "0,3 л" },
-    { name: "Ванильный латте", desc: "Классический латте с натуральным ванильным сиропом", price: 280, vol: "0,4 л" },
-    { name: "Карамельный макиато", desc: "Слоистый кофе с карамельным сиропом и молоком", price: 300, vol: "0,4 л" },
-    { name: "Пряный латте", desc: "Латте с корицей, гвоздикой и мускатным орехом", price: 300, vol: "0,4 л" },
-    { name: "Чёрный кофе фильтр", desc: "Заваренный зерновой кофе методом пуровера", price: 220, vol: "0,3 л" },
-    { name: "Гляссе", desc: "Чёрный кофе с шариком пломбира", price: 290, vol: "0,3 л" },
-    { name: "Эспрессо тоник лавандовый", desc: "Эспрессо, тоник, лавандовый сироп, лимон, лёд", price: 300, vol: "0,3 л" },
-    { name: "Айс-капучино", desc: "Классический капучино в холодной версии", price: 290, vol: "0,3 л" },
-    { name: "Матча-латте", desc: "Японский матча с молоком — нежный и бодрящий", price: 320, vol: "0,4 л" },
-    { name: "Авокадо-латте", desc: "Латте с авокадовым пюре и мёдом", price: 350, vol: "0,4 л" },
-    { name: "Ореховый раф", desc: "Раф с фундучной пастой и ванильными нотками", price: 320, vol: "0,3 л" },
-    { name: "Холодный Brew", desc: "12-часовое холодное заваривание — гладкий и насыщенный", price: 300, vol: "0,3 л" },
-    { name: "Нитро-кофе", desc: "Холодный брю на азоте — кремовая пенка без молока", price: 330, vol: "0,3 л" },
-    { name: "Дальгона", desc: "Взбитый кофе на молоке — вирусный корейский напиток", price: 310, vol: "0,4 л" },
-    { name: "Испанский латте", desc: "Двойной эспрессо, сгущённое молоко, лёд", price: 320, vol: "0,3 л" },
-  ],
-  tea: [
-    { name: "Чай малина-мята", desc: "Ягодный фруктовый чай с освежающей мятой", price: 220, vol: "0,4 л" },
-    { name: "Клубника-базилик", desc: "Сочный ягодный чай с пряным базиликом", price: 230, vol: "0,4 л" },
-    { name: "Персик-маракуйя", desc: "Тропический фруктовый чай с нотками персика", price: 230, vol: "0,4 л" },
-    { name: "Айс ти жасмин-персик", desc: "Зелёный жасминовый чай с персиковым сиропом и льдом", price: 300, vol: "0,4 л" },
-    { name: "Айс ти малина-гибискус", desc: "Освежающий холодный чай с ягодным вкусом", price: 280, vol: "0,4 л" },
-    { name: "Чай манго-маракуйя горячий", desc: "Согревающий тропический фруктовый чай", price: 240, vol: "0,4 л" },
-    { name: "Чай яблоко-корица", desc: "Согревающий чай с яблочным и пряным вкусом", price: 220, vol: "0,4 л" },
-    { name: "Облепиховый чай с имбирём", desc: "Витаминный горячий чай с облепихой и имбирём", price: 240, vol: "0,4 л" },
-    { name: "Чай клюква-апельсин", desc: "Кисло-сладкий ягодный чай с апельсиновыми нотками", price: 230, vol: "0,4 л" },
-    { name: "Чай черника-смородина", desc: "Ягодный чай с глубоким фиолетовым вкусом", price: 240, vol: "0,4 л" },
-    { name: "Лимончелло-чай (айс)", desc: "Освежающий холодный чай с лимонным сиропом", price: 260, vol: "0,4 л" },
-    { name: "Карамельное яблоко (горячий)", desc: "Фруктовый чай с нотками варёного яблока и карамели", price: 240, vol: "0,4 л" },
-    { name: "Чай тропик (горячий)", desc: "Смесь ананаса, кокоса и тропических фруктов", price: 250, vol: "0,4 л" },
-    { name: "Айс ти лимон-мята", desc: "Классический лимонный холодный чай с мятой", price: 260, vol: "0,4 л" },
-    { name: "Чай шиповник-мёд", desc: "Согревающий чай с шиповником и натуральным мёдом", price: 230, vol: "0,4 л" },
-    { name: "Чай арбуз-базилик (айс)", desc: "Освежающий летний чай с арбузным вкусом", price: 270, vol: "0,4 л" },
-    { name: "Грейпфрут-розмарин (айс)", desc: "Необычный холодный чай с горьковатой цитрусовой ноткой", price: 270, vol: "0,4 л" },
-    { name: "Чай личи-роза", desc: "Деликатный фруктовый чай с нотками личи и розы", price: 260, vol: "0,4 л" },
-    { name: "Апельсин-ваниль (горячий)", desc: "Сладкий фруктовый чай с цитрусом и ванилью", price: 240, vol: "0,4 л" },
-    { name: "Малина-лимонная трава", desc: "Яркий фруктовый чай с освежающей лемонграссой", price: 250, vol: "0,4 л" },
-    { name: "Чай клубника-личи (айс)", desc: "Холодный чай с клубникой и экзотическим личи", price: 270, vol: "0,4 л" },
-    { name: "Чай вишня-шоколад", desc: "Необычное сочетание вишнёвого вкуса и шоколадных нот", price: 250, vol: "0,4 л" },
-    { name: "Груша-имбирь (горячий)", desc: "Мягкий согревающий чай с грушей и пряным имбирём", price: 240, vol: "0,4 л" },
-    { name: "Чай кокос-манго (айс)", desc: "Тропический холодный чай на кокосовой воде", price: 280, vol: "0,4 л" },
-    { name: "Белый персик (горячий)", desc: "Нежный белый чай с персиковым настоем", price: 250, vol: "0,4 л" },
-  ],
-  nocoffee: [
-    { name: "Горячий шоколад", desc: "Насыщенный горячий шоколад из бельгийских какао-бобов", price: 280, vol: "0,3 л" },
-    { name: "Айс какао с шоколадом", desc: "Холодное какао с молоком и растопленным бельгийским шоколадом", price: 380, vol: "0,4 л" },
-    { name: "Матча-латте", desc: "Японский матча взбитый с горячим молоком", price: 320, vol: "0,4 л" },
-    { name: "Куркума-латте (золотое молоко)", desc: "Согревающий напиток с куркумой, имбирём и кокосовым молоком", price: 290, vol: "0,4 л" },
-    { name: "Айс матча с манго", desc: "Холодный матча с манговым пюре и сливками", price: 340, vol: "0,3 л" },
-    { name: "Чай масала", desc: "Пряный индийский чай со специями на молоке", price: 270, vol: "0,4 л" },
-    { name: "Кокосовое молоко с мёдом", desc: "Нежный тёплый напиток из кокосового молока с мёдом", price: 250, vol: "0,3 л" },
-    { name: "Малиновый горячий шоколад", desc: "Горячий шоколад с малиновым сиропом", price: 310, vol: "0,3 л" },
-    { name: "Шоколад с чили и корицей", desc: "Горячий шоколад с острой ноткой чили и пряной корицей", price: 300, vol: "0,3 л" },
-    { name: "Ванильное молоко", desc: "Горячее взбитое молоко с ванилью — идеально для детей", price: 210, vol: "0,3 л" },
-  ],
-  summer: [
-    { name: "Айс-латте", desc: "Эспрессо, молоко, лёд — классика жаркого дня", price: 320, vol: "0,3 л" },
-    { name: "Бамбл", desc: "Эспрессо, апельсиновый фреш, карамельный сироп, лёд", price: 360, vol: "0,3 л" },
-    { name: "Лавандовый эспрессо тоник", desc: "Эспрессо, тоник, лавандовый сироп, лимон, лёд", price: 300, vol: "0,3 л" },
-    { name: "Фисташковый американо", desc: "Эспрессо, вода, лёд, сливки, молоко, фисташковая паста, ванильный сироп", price: 370, vol: "0,3 л" },
-    { name: "Айс какао с шоколадом", desc: "Какао, молоко, бельгийский шоколад, лёд", price: 380, vol: "0,4 л" },
-    { name: "Айс матча с манго", desc: "Матча, молоко, пюре манго, лёд, сливки", price: 340, vol: "0,3 л" },
-    { name: "Айс ти жасмин-персик", desc: "Чай зелёный, сироп персик, лимон, лёд", price: 300, vol: "0,4 л" },
-    { name: "Мохито", desc: "Лимон, лайм, мята, сироп мята, газированная вода, лёд", price: 350, vol: "0,4 л" },
-    { name: "Санрайз", desc: "Сироп гренадин, апельсиновый сок, газировка, лёд", price: 350, vol: "0,4 л" },
-  ],
-  macarons: [
-    { name: "Макарон Малина", desc: "Хрустящие ракушки на основе безе с малиновым ганашем", price: 120 },
-    { name: "Макарон Фисташка", desc: "Нежный фисташковый ганаш между двух воздушных ракушек", price: 130 },
-    { name: "Макарон Шоколад", desc: "Тёмный шоколадный ганаш с нотками горького какао", price: 120 },
-    { name: "Макарон Клубника", desc: "Свежий клубничный ганаш с натуральным пюре", price: 125 },
-    { name: "Макарон Лимон", desc: "Кисло-сладкий лимонный курд в нежной ракушке", price: 120 },
-    { name: "Макарон Соленая карамель", desc: "Карамельный ганаш с щепоткой морской соли", price: 130 },
-    { name: "Макарон Черника", desc: "Черничный ганаш с насыщенным ягодным вкусом", price: 125 },
-    { name: "Макарон Ваниль", desc: "Классический ванильный ганаш на основе сливочного масла", price: 115 },
-    { name: "Макарон Кокос", desc: "Нежный кокосовый ганаш с тропическим ароматом", price: 125 },
-    { name: "Макарон Манго-маракуйя", desc: "Тропический дуэт манго и маракуйи в одном укусе", price: 135 },
-    { name: "Макарон Тирамису", desc: "Крем на основе маскарпоне с нотками кофе и ликёра", price: 135 },
-    { name: "Макарон Роза-личи", desc: "Деликатный ганаш с розовой водой и личи", price: 130 },
-    { name: "Макарон Матча", desc: "Японский матча в составе нежного зелёного ганаша", price: 130 },
-    { name: "Макарон Арахисовая паста", desc: "Американский ганаш на основе арахисовой пасты", price: 125 },
-    { name: "Макарон Вишня-шоколад", desc: "Вишнёвый конфитюр с тёмным шоколадным ганашем", price: 130 },
-    { name: "Макарон Абрикос", desc: "Солнечный абрикосовый ганаш с лёгкой кислинкой", price: 120 },
-    { name: "Макарон Мятный шоколад", desc: "Шоколадный ганаш с освежающей мятой", price: 125 },
-    { name: "Макарон Карамель-груша", desc: "Грушевый конфитюр с карамельным кремом", price: 130 },
-    { name: "Макарон Инжир-мёд", desc: "Ганаш с инжировым пюре и горным мёдом", price: 135 },
-    { name: "Макарон Флёр де Сель", desc: "Белый шоколад и флёр де сель — соль Бретани", price: 135 },
-  ],
-  bento: [
-    { name: "Бенто «Клубника»", desc: "Ванильный бисквит, клубничный конфитюр, сливочный крем", price: 900 },
-    { name: "Бенто «Шоколад»", desc: "Тёмный шоколадный бисквит, шоколадный мусс, декор из шоколада", price: 950 },
-    { name: "Бенто «Малина»", desc: "Ванильный бисквит, малиновый конфитюр, крем-чиз", price: 920 },
-    { name: "Бенто «Фисташка»", desc: "Нежный фисташковый бисквит, фисташковый крем", price: 980 },
-    { name: "Бенто «Манго-маракуйя»", desc: "Ванильный бисквит, тропическая начинка, сливочный крем", price: 950 },
-    { name: "Бенто «Тирамису»", desc: "Кофейный бисквит, крем маскарпоне, какао", price: 960 },
-    { name: "Бенто «Карамель»", desc: "Ванильный бисквит, карамельный крем, домашняя карамель", price: 940 },
-    { name: "Бенто «Черника»", desc: "Ванильный бисквит, черничный конфитюр, крем-чиз", price: 920 },
-    { name: "Бенто «Вишня-шоколад»", desc: "Шоколадный бисквит, вишнёвый конфитюр, тёмный ганаш", price: 950 },
-    { name: "Бенто «Лимон-меренга»", desc: "Лимонный курд, воздушные меренги, хрустящее дно", price: 960 },
-    { name: "Бенто «Кокос-ананас»", desc: "Кокосовый бисквит, ананасовый конфитюр, кокосовый крем", price: 950 },
-  ],
-  cakes: [
-    { name: "Торт «Сникерс»", desc: "Пропитанный шоколадный бисквит · Арахисовый сырно-сливочный крем · Домашняя карамель · Солёный арахис · Шоколадные воздушные шарики", price: 2500, vol: "от 1 кг" },
-    { name: "Торт «Тропик»", desc: "Ванильный бисквит · Нежный сырно-сливочный крем · Ананасовая пропитка · Начинка манго-маракуйя и кусочки ананаса", price: 2500, vol: "от 1 кг" },
-    { name: "Торт «Вишня-Шоколад»", desc: "Пропитанный шоколадный бисквит · Нежный сырно-сливочный крем · Вишнёвая начинка", price: 2500, vol: "от 1 кг" },
-    { name: "Торт «Медовик»", desc: "Тонкие медовые коржи · Воздушный заварной крем", price: 2500, vol: "от 1 кг" },
-    { name: "Торт «Морковный»", desc: "Морковный бисквит с грецким орехом и корицей · Нежный крем с кусочками чернослива", price: 2500, vol: "от 1 кг" },
-    { name: "Торт «Ваниль-Клубника»", desc: "Пропитанный ванильный бисквит · Нежный сырно-сливочный крем · Клубничная начинка", price: 2500, vol: "от 1 кг" },
-  ],
-  croissants: [
-    { name: "Круассан «Фисташка-Клубника»", desc: "Хрустящий слоёный круассан с нежным фисташковым кремом и замороженной клубникой", price: 290 },
-    { name: "Круассан «Нутелла»", desc: "Классический круассан с нутеллой и хлопьями миндаля", price: 270 },
-    { name: "Круассан с заварным кремом и ягодами", desc: "Пышный круассан с лёгким заварным кремом, клубникой и черникой", price: 300 },
-    { name: "Круассан «Маслёнок»", desc: "Классический масляный круассан без начинки — хрустящий снаружи, воздушный внутри", price: 220 },
-    { name: "Круассан «Малина-Маскарпоне»", desc: "Малиновый конфитюр и воздушный крем-маскарпоне", price: 300 },
-    { name: "Круассан «Манго-Кокос»", desc: "Тропическая начинка из манго и кокосового крема", price: 310 },
-    { name: "Круассан «Карамель-Арахис»", desc: "Домашняя карамель с солёным арахисом и ганашем", price: 290 },
-    { name: "Круассан «Черника-Лимон»", desc: "Черничный конфитюр с лимонным кремом и цедрой", price: 295 },
-  ],
-};
-
-let cart = {};
-
-function makeCard(item, category) {
-  const key = item.name;
-  const div = document.createElement('div');
-  div.className = 'item-card';
-  div.innerHTML = `
-    <div class="item-img-box"><span>ФОТО</span></div>
-    <div class="item-body">
-      <div class="item-name">${item.name}</div>
-      <div class="item-desc">${item.desc}</div>
-      <div class="item-footer">
-        <div>
-          <div class="item-price">${item.price.toLocaleString('ru-RU')} ₽</div>
-          ${item.vol ? `<div class="item-volume">${item.vol}</div>` : ''}
+    <main class="max-w-7xl mx-auto px-4 py-16 space-y-16">
+        <div class="text-center space-y-4">
+            <h1 class="text-4xl md:text-5xl font-light uppercase tracking-wider">Полная галерея позиций</h1>
+            <p class="text-stone-500 max-w-xl mx-auto font-light text-sm">Каждая позиция — результат кропотливой кулинарной работы наших шеф-кондитеров.</p>
         </div>
-        <button class="add-btn" onclick="addToCart('${key.replace(/'/g,"\\'")}',${item.price})">+ В корзину</button>
-      </div>
-    </div>`;
-  return div;
-}
 
-function populateGrid(id, items) {
-  const g = document.getElementById(id);
-  if (!g) return;
-  items.forEach(item => g.appendChild(makeCard(item)));
-}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-brandCardBg rounded-[2rem] p-6 shadow-2xl shadow-stone-200/50 flex flex-col justify-between">
+                <div>
+                    <div class="w-full h-64 bg-brandGray rounded-[1.5rem] flex items-center justify-center mb-6">
+                        <span class="text-brandPink font-bold text-xl tracking-widest">ФОТО</span>
+                    </div>
+                    <div class="text-xs font-semibold text-brandPink tracking-widest uppercase mb-2">Торты свыше 1 кг</div>
+                    <h3 class="text-xl font-semibold mb-2">Сникерс Премиум</h3>
+                    <p class="text-stone-500 text-sm font-light">Пропитанный шоколадный бисквит, арахисовый сырно-сливочный крем, домашняя карамель, соленый арахис, шоколадные воздушные шарики.</p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-stone-50 flex items-center justify-between">
+                    <span class="text-lg font-bold">2 500 ₽ <span class="text-xs text-stone-400 font-light">/ кг</span></span>
+                    <span class="bg-stone-900 text-white text-xs px-4 py-2 rounded-full font-semibold uppercase tracking-wider">Доступно</span>
+                </div>
+            </div>
 
-populateGrid('coffee-grid', MENU.coffee);
-populateGrid('tea-grid', MENU.tea);
-populateGrid('nocoffee-grid', MENU.nocoffee);
-populateGrid('summer-grid', MENU.summer);
-populateGrid('macarons-grid', MENU.macarons);
-populateGrid('bento-grid', MENU.bento);
-populateGrid('cakes-grid', MENU.cakes);
-populateGrid('croissants-grid', MENU.croissants);
+            <div class="bg-brandCardBg rounded-[2rem] p-6 shadow-2xl shadow-stone-200/50 flex flex-col justify-between">
+                <div>
+                    <div class="w-full h-64 bg-brandGray rounded-[1.5rem] flex items-center justify-center mb-6">
+                        <span class="text-brandPink font-bold text-xl tracking-widest">ФОТО</span>
+                    </div>
+                    <div class="text-xs font-semibold text-brandPink tracking-widest uppercase mb-2">Авторские напитки</div>
+                    <h3 class="text-xl font-semibold mb-2">Аффогато</h3>
+                    <p class="text-stone-500 text-sm font-light">Шоколадно-арахисовая паста, отборные фисташки, нежное ванильное мороженое и порция свежесваренного эспрессо.</p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-stone-50 flex items-center justify-between">
+                    <span class="text-lg font-bold">350 ₽ <span class="text-xs text-stone-400 font-light">(0.2 л)</span></span>
+                    <span class="bg-stone-900 text-white text-xs px-4 py-2 rounded-full font-semibold uppercase tracking-wider">Доступно</span>
+                </div>
+            </div>
 
-function addToCart(name, price) {
-  if (cart[name]) {
-    cart[name].qty++;
-  } else {
-    cart[name] = { price, qty: 1 };
-  }
-  updateCartUI();
-  const fab = document.getElementById('cartFab');
-  fab.style.display = 'flex';
-  fab.style.animation = 'none';
-  setTimeout(() => fab.style.animation = '', 10);
-}
+            <div class="bg-brandCardBg rounded-[2rem] p-6 shadow-2xl shadow-stone-200/50 flex flex-col justify-between">
+                <div>
+                    <div class="w-full h-64 bg-brandGray rounded-[1.5rem] flex items-center justify-center mb-6">
+                        <span class="text-brandPink font-bold text-xl tracking-widest">ФОТО</span>
+                    </div>
+                    <div class="text-xs font-semibold text-brandPink tracking-widest uppercase mb-2">Сезонное горячее</div>
+                    <h3 class="text-xl font-semibold mb-2">Скандинавский глёк кофейный</h3>
+                    <p class="text-stone-500 text-sm font-light">Безалкогольный вишневый сок, ром, ароматная гвоздика, бадьян, кленовый сироп, корица, брусника, клюква, эспрессо.</p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-stone-50 flex items-center justify-between">
+                    <span class="text-lg font-bold">350 ₽ <span class="text-xs text-stone-400 font-light">(0.3 л)</span></span>
+                    <span class="bg-stone-900 text-white text-xs px-4 py-2 rounded-full font-semibold uppercase tracking-wider">Сезонный</span>
+                </div>
+            </div>
+        </div>
+    </main>
 
-function removeFromCart(name) {
-  if (cart[name]) {
-    cart[name].qty--;
-    if (cart[name].qty <= 0) delete cart[name];
-  }
-  updateCartUI();
-}
-
-function updateCartUI() {
-  const total = Object.values(cart).reduce((s, v) => s + v.price * v.qty, 0);
-  const count = Object.values(cart).reduce((s, v) => s + v.qty, 0);
-  document.getElementById('cartCount').textContent = count;
-  document.getElementById('cartTotal').textContent = total.toLocaleString('ru-RU') + ' ₽';
-
-  const itemsEl = document.getElementById('cartItems');
-  const footer = document.getElementById('cartFooter');
-  const fab = document.getElementById('cartFab');
-
-  if (count === 0) {
-    itemsEl.innerHTML = '<div class="cart-empty"><div style="font-size:2rem">🧁</div><p>Корзина пуста</p></div>';
-    footer.style.display = 'none';
-    fab.style.display = 'none';
-    return;
-  }
-
-  footer.style.display = 'block';
-  fab.style.display = 'flex';
-
-  itemsEl.innerHTML = Object.entries(cart).map(([name, v]) => `
-    <div class="cart-item">
-      <div class="cart-item-name">${name}</div>
-      <div class="qty-control">
-        <button class="qty-btn" onclick="removeFromCart('${name.replace(/'/g,"\\'")}')">−</button>
-        <div class="qty-num">${v.qty}</div>
-        <button class="qty-btn" onclick="addToCart('${name.replace(/'/g,"\\'")}',${v.price})">+</button>
-      </div>
-      <div class="cart-item-price">${(v.price * v.qty).toLocaleString('ru-RU')} ₽</div>
-    </div>`).join('');
-
-  const orderText = Object.entries(cart)
-    .map(([n, v]) => `• ${n} x${v.qty} = ${(v.price * v.qty).toLocaleString('ru-RU')} ₽`)
-    .join('%0A');
-  const msg = `Привет! Хочу сделать заказ:%0A%0A${orderText}%0A%0AИтого: ${total.toLocaleString('ru-RU')} ₽`;
-  document.getElementById('tgOrderBtn').href = `https://t.me/edkris_cakes?text=${msg}`;
-}
-
-function openCart() {
-  document.getElementById('cartOverlay').classList.add('open');
-  document.getElementById('cartDrawer').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeCart() {
-  document.getElementById('cartOverlay').classList.remove('open');
-  document.getElementById('cartDrawer').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function switchCat(cat) {
-  document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
-  document.getElementById(cat).classList.add('active');
-  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
-}
-
-function switchSub(cat, sub) {
-  const parent = document.getElementById(cat);
-  parent.querySelectorAll('.sub-section').forEach(s => s.classList.remove('active'));
-  document.getElementById(`${cat}-${sub}`).classList.add('active');
-  parent.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
-}
-</script>
 </body>
 </html>

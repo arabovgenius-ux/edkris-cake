@@ -1,230 +1,1037 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EXAMPLE_CAKES | Главная</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brandPink: '#FF1493',
-                        brandCream: '#FAF6F0',
-                        brandCardBg: '#FFFFFF',
-                        brandGray: '#E5E7EB'
-                    },
-                    fontFamily: {
-                        title: ['"Great Vibes"', 'cursive'],
-                        body: ['"Open Sans"', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @keyframes pulse-subtle {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-        }
-        .animate-micro {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .animate-micro:hover {
-            transform: translateY(-2px);
-            animation: pulse-subtle 1s infinite ease-in-out;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EXAMPLE_CAKES</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink: #FF4F91;
+      --pink-light: #FFD6E8;
+      --pink-pale: #FFF0F7;
+      --cream: #FFF8FB;
+      --text: #1A1A1A;
+      --gray-photo: #D9D9D9;
+    }
+    * { box-sizing: border-box; }
+    body {
+      html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: var(--cream);
+  color: var(--text);
+  margin: 0;
+}
+
+      font-family: 'Great Vibes', cursive;
+      color: var(--pink);
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,248,251,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--pink-light);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.5rem;
+      color: var(--pink);
+      letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px;
+      height: 2.5px;
+      background: var(--pink);
+      border-radius: 2px;
+    }
+
+    /* HERO */
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 24px 64px;
+      text-align: center;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--pink-light);
+      color: var(--pink);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.2rem, 8vw, 4.5rem);
+      color: var(--pink);
+      line-height: 1.1;
+      margin: 0 0 20px;
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: #777;
+      font-weight: 400;
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--pink);
+      color: #fff;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 16px 40px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 28px rgba(255,79,145,0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px rgba(255,79,145,0.45);
+    }
+
+    /* CATEGORY PILLS */
+    .cat-scroll {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px 40px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .cat-scroll::-webkit-scrollbar { display: none; }
+    .cat-pill {
+      flex-shrink: 0;
+      padding: 10px 22px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid transparent;
+      background: #fff;
+      color: #888;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .cat-pill.active, .cat-pill:hover {
+      background: var(--pink);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(255,79,145,0.3);
+    }
+
+    /* SECTION TITLE */
+    .section-title {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px 28px;
+    }
+    .section-title h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+      margin: 0 0 4px;
+    }
+    .section-title p {
+      font-size: 0.85rem;
+      color: #aaa;
+      margin: 0;
+    }
+
+    /* FEATURED CARD (big) */
+    .featured-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px 32px;
+    }
+    .featured-card {
+      background: #fff;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 8px 48px rgba(255,79,145,0.10), 0 2px 12px rgba(0,0,0,0.06);
+      display: flex;
+      align-items: stretch;
+      min-height: 340px;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .featured-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(255,79,145,0.18), 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .featured-photo {
+      width: 55%;
+      background: var(--gray-photo);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border-radius: 28px 0 0 28px;
+      min-height: 340px;
+    }
+    .photo-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--pink);
+      letter-spacing: 0.05em;
+      opacity: 0.6;
+    }
+    .featured-info {
+      padding: 40px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--pink-light);
+      color: var(--pink);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+      width: fit-content;
+    }
+    .featured-info h3 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin: 0 0 12px;
+      line-height: 1.2;
+    }
+    .featured-info p {
+      font-size: 0.88rem;
+      color: #888;
+      line-height: 1.7;
+      margin: 0 0 28px;
+    }
+    .price-tag {
+      display: inline-block;
+      background: var(--pink-pale);
+      color: var(--pink);
+      font-weight: 800;
+      font-size: 1.1rem;
+      padding: 10px 22px;
+      border-radius: 100px;
+    }
+
+    /* GRID CARDS */
+    .grid-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px 24px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(255,79,145,0.08), 0 1px 6px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(255,79,145,0.18), 0 3px 12px rgba(0,0,0,0.07);
+    }
+    .card-photo {
+      background: var(--gray-photo);
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-photo .photo-label {
+      font-size: 1.1rem;
+    }
+    .card-body {
+      padding: 18px 20px 20px;
+    }
+    .card-body h4 {
+      font-size: 0.97rem;
+      font-weight: 700;
+      margin: 0 0 6px;
+      color: var(--text);
+    }
+    .card-body p {
+      font-size: 0.78rem;
+      color: #aaa;
+      margin: 0 0 14px;
+      line-height: 1.5;
+    }
+    .card-price {
+      display: inline-block;
+      background: var(--pink-pale);
+      color: var(--pink);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 7px 16px;
+      border-radius: 100px;
+    }
+
+    /* DRINKS SECTION */
+    .drinks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .drink-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(255,79,145,0.07), 0 1px 4px rgba(0,0,0,0.04);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .drink-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 36px rgba(255,79,145,0.16);
+    }
+    .drink-photo {
+      background: var(--gray-photo);
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .drink-photo .photo-label {
+      font-size: 0.95rem;
+    }
+    .drink-body {
+      padding: 14px 16px 16px;
+    }
+    .drink-body h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin: 0 0 4px;
+    }
+    .drink-body p {
+      font-size: 0.73rem;
+      color: #bbb;
+      margin: 0 0 10px;
+      line-height: 1.4;
+    }
+    .drink-price {
+      display: inline-block;
+      background: var(--pink-pale);
+      color: var(--pink);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 5px 13px;
+      border-radius: 100px;
+    }
+
+    /* CONTACT SECTION */
+    .contact-section {
+      background: #fff;
+      border-top: 1px solid var(--pink-light);
+      margin-top: 80px;
+    }
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 72px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .contact-brand {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      color: var(--pink);
+      margin: 0 0 16px;
+    }
+    .contact-tagline {
+      font-size: 0.9rem;
+      color: #aaa;
+      line-height: 1.7;
+      margin: 0 0 36px;
+      max-width: 320px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--pink-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--pink);
+      fill: none;
+    }
+    .contact-detail h5 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #bbb;
+      margin: 0 0 4px;
+    }
+    .contact-detail p {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0;
+      line-height: 1.5;
+    }
+    .map-placeholder {
+      background: var(--gray-photo);
+      border-radius: 22px;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .map-placeholder span {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--pink);
+      opacity: 0.5;
+      letter-spacing: 0.08em;
+    }
+    .hours-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 20px;
+      margin-top: 12px;
+    }
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: #666;
+      padding: 4px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .hours-row span:last-child { font-weight: 600; color: var(--text); }
+
+    /* FOOTER */
+    footer {
+      background: var(--pink-pale);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.78rem;
+      color: #bbb;
+      border-top: 1px solid var(--pink-light);
+    }
+    footer .brand { font-size: 1.3rem; display: block; margin-bottom: 8px; }
+
+    /* DIVIDER */
+    .divider {
+      max-width: 1200px;
+      margin: 60px auto 60px;
+      padding: 0 24px;
+    }
+    .divider hr {
+      border: none;
+      border-top: 1px solid var(--pink-light);
+    }
+
+    @media (max-width: 768px) {
+      .featured-card { flex-direction: column; }
+      .featured-photo { width: 100%; min-height: 220px; border-radius: 28px 28px 0 0; }
+      .featured-info { padding: 24px; }
+      .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+      .card-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+      .drinks-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    }
+    @media (max-width: 480px) {
+      .card-grid { grid-template-columns: 1fr 1fr; }
+      .drinks-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
 </head>
-<body class="bg-brandCream font-body text-stone-800 antialiased selection:bg-brandPink selection:text-white">
+<body>
 
-    <header class="sticky top-0 z-50 bg-brandCream/90 backdrop-blur-md border-b border-brandPink/10 px-6 py-4 flex justify-between items-center">
-        <a href="index.html" class="font-title text-4xl font-bold text-brandPink tracking-wider">EXAMPLE_CAKES</a>
-        <div class="flex flex-col gap-1.5 cursor-pointer p-2">
-            <span class="w-7 h-0.5 bg-brandPink"></span>
-            <span class="w-7 h-0.5 bg-brandPink"></span>
-            <span class="w-7 h-0.5 bg-brandPink"></span>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">EXAMPLE_CAKES</a>
+      <div style="display:flex;align-items:center;gap:28px;">
+        <a href="menu.html" style="font-size:0.85rem;font-weight:600;color:#888;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#FF4F91'" onmouseout="this.style.color='#888'">Меню</a>
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
-    </header>
+      </div>
+    </div>
+  </nav>
 
-    <section class="min-h-[70vh] flex flex-col justify-center items-center text-center px-4 py-20">
-        <h1 class="font-title text-7xl md:text-9xl text-brandPink mb-6">Your day. Your Cake.</h1>
-        <p class="max-w-xl text-stone-600 text-lg md:text-xl font-light mb-10 uppercase tracking-widest">Премиальные кондитерские изделия и авторский кофе для истинных ценителей момента.</p>
-        <a href="#menu" class="border border-brandPink text-brandPink hover:bg-brandPink hover:text-white px-8 py-4 uppercase tracking-widest text-sm transition-all duration-300 font-semibold rounded-full shadow-lg hover:shadow-brandPink/20">
-            Открыть меню
-        </a>
-    </section>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">Кофейня и кондитерская</div>
+    <h1>EXAMPLE_CAKES</h1>
+    <p class="hero-sub">Авторские торты, бенто и напитки с любовью к каждой детали. Создано для тех, кто ценит вкус.</p>
+    <a href="#menu" class="btn-primary">Смотреть меню</a>
+  </section>
 
-    <div class="sticky top-[73px] z-40 bg-brandCream/95 py-4 border-b border-brandPink/10 overflow-x-auto whitespace-nowrap scrollbar-none px-6">
-        <div class="flex gap-4 max-w-7xl mx-auto">
-            <a href="#bento" class="bg-brandPink text-white px-6 py-2 rounded-full text-sm font-semibold shadow-md">Торты и Бенто</a>
-            <a href="#croissants" class="bg-brandCardBg text-stone-700 border border-brandPink/20 px-6 py-2 rounded-full text-sm font-semibold hover:border-brandPink transition-all">Круассаны</a>
-            <a href="#drinks" class="bg-brandCardBg text-stone-700 border border-brandPink/20 px-6 py-2 rounded-full text-sm font-semibold hover:border-brandPink transition-all">Напитки</a>
-        </div>
+  <!-- CATEGORY PILLS -->
+  <div class="cat-scroll" id="menu">
+    <div class="cat-pill active" onclick="filterSection('all', this)">Все</div>
+    <div class="cat-pill" onclick="filterSection('cakes', this)">Торты</div>
+    <div class="cat-pill" onclick="filterSection('bento', this)">Бенто</div>
+    <div class="cat-pill" onclick="filterSection('croissants', this)">Круассаны</div>
+    <div class="cat-pill" onclick="filterSection('coffee', this)">Кофе</div>
+    <div class="cat-pill" onclick="filterSection('author', this)">Авторские</div>
+    <div class="cat-pill" onclick="filterSection('seasonal', this)">Сезонное</div>
+    <div class="cat-pill" onclick="filterSection('ice', this)">Айс</div>
+  </div>
+
+  <!-- ===== SECTION: TORTY ===== -->
+  <div class="section-data" data-cat="cakes">
+    <div class="section-title">
+      <h2>Торты свыше 1 кг</h2>
+      <p>от 2 500 ₽ за кг — под заказ</p>
     </div>
 
-    <main id="menu" class="max-w-7xl mx-auto px-4 py-16 space-y-24">
-
-        <section id="bento" class="space-y-8">
-            <h2 class="text-3xl font-light tracking-wide uppercase border-l-4 border-brandPink pl-4">Торты и Бенто</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-brandCardBg rounded-[2rem] p-6 shadow-2xl shadow-stone-200/50 hover:shadow-brandPink/10 transition-all duration-500 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-full h-64 bg-brandGray rounded-[1.5rem] flex items-center justify-center mb-6 overflow-hidden border border-brandPink/5">
-                            <span class="text-brandPink font-bold text-xl tracking-widest">ФОТО</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2 group-hover:text-brandPink transition-colors">Бенто Клубника-Ваниль</h3>
-                        <p class="text-stone-500 text-sm font-light leading-relaxed">Ванильный бисквит, нежный сырно-сливочный крем, клубничная начинка.</p>
-                    </div>
-                    <div class="flex items-center justify-between mt-6 pt-4 border-t border-stone-50">
-                        <span class="text-lg font-bold text-stone-800">от 1 200 ₽</span>
-                        <a href="menu.html" class="bg-brandPink/10 text-brandPink hover:bg-brandPink hover:text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all">Подробнее</a>
-                    </div>
-                </div>
-                <div class="bg-brandCardBg rounded-[2rem] p-6 shadow-2xl shadow-stone-200/50 hover:shadow-brandPink/10 transition-all duration-500 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-full h-64 bg-brandGray rounded-[1.5rem] flex items-center justify-center mb-6 overflow-hidden border border-brandPink/5">
-                            <span class="text-brandPink font-bold text-xl tracking-widest">ФОТО</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2 group-hover:text-brandPink transition-colors">Бенто Сникерс</h3>
-                        <p class="text-stone-500 text-sm font-light leading-relaxed">Шоколадный бисквит, арахисовый сырно-сливочный крем, домашняя карамель, соленый арахис, криспи.</p>
-                    </div>
-                    <div class="flex items-center justify-between mt-6 pt-4 border-t border-stone-50">
-                        <span class="text-lg font-bold text-stone-800">от 1 300 ₽</span>
-                        <a href="menu.html" class="bg-brandPink/10 text-brandPink hover:bg-brandPink hover:text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all">Подробнее</a>
-                    </div>
-                </div>
-                <div class="bg-brandCardBg rounded-[2rem] p-6 shadow-2xl shadow-stone-200/50 hover:shadow-brandPink/10 transition-all duration-500 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-full h-64 bg-brandGray rounded-[1.5rem] flex items-center justify-center mb-6 overflow-hidden border border-brandPink/5">
-                            <span class="text-brandPink font-bold text-xl tracking-widest">ФОТО</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2 group-hover:text-brandPink transition-colors">Торт Медовик (> 1кг)</h3>
-                        <p class="text-stone-500 text-sm font-light leading-relaxed">Тонкие медовые коржи, воздушный заварной крем. Идеальный премиальный вкус.</p>
-                    </div>
-                    <div class="flex items-center justify-between mt-6 pt-4 border-t border-stone-50">
-                        <span class="text-lg font-bold text-stone-800">2 500 ₽ <span class="text-xs text-stone-400 font-light">/ кг</span></span>
-                        <a href="menu.html" class="bg-brandPink/10 text-brandPink hover:bg-brandPink hover:text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all">Подробнее</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="croissants" class="space-y-8">
-            <h2 class="text-3xl font-light tracking-wide uppercase border-l-4 border-brandPink pl-4">Круассаны</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-brandCardBg rounded-[2rem] p-6 shadow-2xl shadow-stone-200/50 hover:shadow-brandPink/10 transition-all duration-500 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-full h-72 bg-brandGray rounded-[1.5rem] flex items-center justify-center mb-6 border border-brandPink/5">
-                            <span class="text-brandPink font-bold text-xl tracking-widest">ФОТО</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2 group-hover:text-brandPink transition-colors">Круассан Фисташка - Клубника</h3>
-                        <p class="text-stone-500 text-sm font-light leading-relaxed">Свежеиспеченный французский круассан с начинкой из натуральной фисташковой пасты и спелой клубники.</p>
-                    </div>
-                    <div class="flex items-center justify-between mt-6 pt-4">
-                        <span class="text-lg font-bold text-stone-800">от 350 ₽</span>
-                        <a href="menu.html" class="bg-brandPink/10 text-brandPink hover:bg-brandPink hover:text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all">Подробнее</a>
-                    </div>
-                </div>
-                <div class="bg-brandCardBg rounded-[2rem] p-6 shadow-2xl shadow-stone-200/50 hover:shadow-brandPink/10 transition-all duration-500 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-full h-72 bg-brandGray rounded-[1.5rem] flex items-center justify-center mb-6 border border-brandPink/5">
-                            <span class="text-brandPink font-bold text-xl tracking-widest">ФОТО</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2 group-hover:text-brandPink transition-colors">Круассан с заварным кремом</h3>
-                        <p class="text-stone-500 text-sm font-light leading-relaxed">Классическое слоеное тесто, нежный ванильный заварной крем и сезонные свежие ягоды.</p>
-                    </div>
-                    <div class="flex items-center justify-between mt-6 pt-4">
-                        <span class="text-lg font-bold text-stone-800">от 380 ₽</span>
-                        <a href="menu.html" class="bg-brandPink/10 text-brandPink hover:bg-brandPink hover:text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all">Подробнее</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="drinks" class="space-y-8">
-            <h2 class="text-3xl font-light tracking-wide uppercase border-l-4 border-brandPink pl-4">Меню напитков</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-brandCardBg rounded-[2rem] p-6 shadow-2xl shadow-stone-200/50 hover:shadow-brandPink/10 transition-all duration-500 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-full h-64 bg-brandGray rounded-[1.5rem] flex items-center justify-center mb-6 border border-brandPink/5">
-                            <span class="text-brandPink font-bold text-xl tracking-widest">ФОТО</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2 group-hover:text-brandPink transition-colors">Капучино Пышная ириска</h3>
-                        <p class="text-stone-500 text-sm font-light leading-relaxed">Молоко, фирменный сироп Ириска, свежий эспрессо и воздушная пенка маршмеллоу.</p>
-                    </div>
-                    <div class="flex items-center justify-between mt-6 pt-4">
-                        <span class="text-lg font-bold text-stone-800">320 ₽ <span class="text-xs text-stone-400 font-light">(0.3 л)</span></span>
-                        <a href="menu.html" class="bg-brandPink/10 text-brandPink hover:bg-brandPink hover:text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all">Подробнее</a>
-                    </div>
-                </div>
-                <div class="bg-brandCardBg rounded-[2rem] p-6 shadow-2xl shadow-stone-200/50 hover:shadow-brandPink/10 transition-all duration-500 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-full h-64 bg-brandGray rounded-[1.5rem] flex items-center justify-center mb-6 border border-brandPink/5">
-                            <span class="text-brandPink font-bold text-xl tracking-widest">ФОТО</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2 group-hover:text-brandPink transition-colors">Цветочная матча</h3>
-                        <p class="text-stone-500 text-sm font-light leading-relaxed">Натуральное кокосовое молоко, премиальная японская матча и ароматный лавандовый сироп.</p>
-                    </div>
-                    <div class="flex items-center justify-between mt-6 pt-4">
-                        <span class="text-lg font-bold text-stone-800">300 ₽ <span class="text-xs text-stone-400 font-light">(0.3 л)</span></span>
-                        <a href="menu.html" class="bg-brandPink/10 text-brandPink hover:bg-brandPink hover:text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all">Подробнее</a>
-                    </div>
-                </div>
-                <div class="bg-brandCardBg rounded-[2rem] p-6 shadow-2xl shadow-stone-200/50 hover:shadow-brandPink/10 transition-all duration-500 flex flex-col justify-between group">
-                    <div>
-                        <div class="w-full h-64 bg-brandGray rounded-[1.5rem] flex items-center justify-center mb-6 border border-brandPink/5">
-                            <span class="text-brandPink font-bold text-xl tracking-widest">ФОТО</span>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2 group-hover:text-brandPink transition-colors">Лавандовый эспрессо тоник</h3>
-                        <p class="text-stone-500 text-sm font-light leading-relaxed">Освежающий микс: классический эспрессо, тоник, лавандовый сироп, долька лимона и лед.</p>
-                    </div>
-                    <div class="flex items-center justify-between mt-6 pt-4">
-                        <span class="text-lg font-bold text-stone-800">300 ₽ <span class="text-xs text-stone-400 font-light">(0.3 л)</span></span>
-                        <a href="menu.html" class="bg-brandPink/10 text-brandPink hover:bg-brandPink hover:text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all">Подробнее</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <div class="fixed bottom-6 right-6 z-50">
-        <a href="https://t.me/example_username" target="_blank" class="animate-micro flex items-center gap-3 bg-brandPink text-white px-6 py-4 rounded-full shadow-2xl shadow-brandPink/40 font-semibold tracking-wider text-sm uppercase">
-            <span>Заказать в Telegram</span>
-            <span class="w-2 h-2 bg-white rounded-full inline-block"></span>
-        </a>
+    <div class="featured-wrap">
+      <div class="featured-card">
+        <div class="featured-photo">
+          <span class="photo-label">ФОТО</span>
+        </div>
+        <div class="featured-info">
+          <div class="badge">Хит сезона</div>
+          <h3>Медовик</h3>
+          <p>Тонкие медовые коржи и воздушный заварной крем — классика, которую хочется снова и снова.</p>
+          <span class="price-tag">от 2 500 ₽ / кг</span>
+        </div>
+      </div>
     </div>
 
-    <footer id="contacts" class="bg-stone-950 text-brandCream rounded-t-[3rem] px-8 py-16 mt-32 border-t border-brandPink/20">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-            <div class="space-y-4">
-                <span class="font-title text-4xl text-brandPink block">EXAMPLE_CAKES</span>
-                <p class="text-stone-400 text-sm font-light leading-relaxed">Искусство создания десертов премиального уровня. Только лучшие ингредиенты и ручная работа.</p>
-            </div>
-            <div class="space-y-4">
-                <h4 class="text-sm font-bold uppercase tracking-widest text-brandPink">Адрес кондитерской</h4>
-                <p class="text-stone-300 text-sm font-light">Улица Премиальная, дом 14<br>Центральный район, Москва</p>
-            </div>
-            <div class="space-y-4">
-                <h4 class="text-sm font-bold uppercase tracking-widest text-brandPink">Связь с нами</h4>
-                <p class="text-stone-300 text-sm font-light">Телефон: +7 (999) 000-11-22<br>Email: hello@examplecakes.ru</p>
-            </div>
-            <div class="space-y-4">
-                <h4 class="text-sm font-bold uppercase tracking-widest text-brandPink">Быстрая навигация</h4>
-                <div class="flex flex-col gap-2 text-sm font-light text-stone-400">
-                    <a href="menu.html" class="hover:text-brandPink transition-colors">Посмотреть карточки меню</a>
-                    <a href="contacts.html" class="hover:text-brandPink transition-colors">Отдельные контакты</a>
-                </div>
-            </div>
+    <div class="grid-wrap">
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="card-body">
+            <h4>Сникерс</h4>
+            <p>Шоколадный бисквит, арахисовый крем, домашняя карамель, арахис, криспи</p>
+            <span class="card-price">от 2 500 ₽/кг</span>
+          </div>
         </div>
-        <div class="max-w-7xl mx-auto border-t border-stone-800 mt-12 pt-6 text-center text-xs text-stone-500 font-light">
-            © 2026 EXAMPLE_CAKES. Все права защищены.
+        <div class="card">
+          <div class="card-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="card-body">
+            <h4>Тропик</h4>
+            <p>Ванильный бисквит, сливочный крем, манго-маракуйя, кусочки ананаса</p>
+            <span class="card-price">от 2 500 ₽/кг</span>
+          </div>
         </div>
-    </footer>
+        <div class="card">
+          <div class="card-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="card-body">
+            <h4>Вишня-Шоколад</h4>
+            <p>Шоколадный бисквит, нежный сырно-сливочный крем, вишневая начинка</p>
+            <span class="card-price">от 2 500 ₽/кг</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="card-body">
+            <h4>Морковный</h4>
+            <p>Морковный бисквит, грецкий орех, корица, крем с черносливом</p>
+            <span class="card-price">от 2 500 ₽/кг</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="card-body">
+            <h4>Ваниль-Клубника</h4>
+            <p>Ванильный бисквит, сырно-сливочный крем, клубничная начинка</p>
+            <span class="card-price">от 2 500 ₽/кг</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <div class="divider"><hr /></div>
+
+  <!-- ===== SECTION: BENTO ===== -->
+  <div class="section-data" data-cat="bento">
+    <div class="section-title">
+      <h2>Бенто-торты</h2>
+      <p>Маленькие, но невероятно вкусные</p>
+    </div>
+    <div class="grid-wrap">
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="card-body">
+            <h4>Клубника / Ваниль</h4>
+            <p>Ванильный бисквит, сырно-сливочный крем, клубничная начинка</p>
+            <span class="card-price">По запросу</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="card-body">
+            <h4>Тропик</h4>
+            <p>Ванильный бисквит, ананасовая пропитка, манго-маракуйя</p>
+            <span class="card-price">По запросу</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="card-body">
+            <h4>Сникерс</h4>
+            <p>Шоколадный бисквит, арахисовый крем, карамель, соленый арахис</p>
+            <span class="card-price">По запросу</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="card-body">
+            <h4>Вишня-Шоколад</h4>
+            <p>Шоколадный бисквит, нежный крем, вишневая начинка</p>
+            <span class="card-price">По запросу</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><hr /></div>
+
+  <!-- ===== SECTION: CROISSANTS ===== -->
+  <div class="section-data" data-cat="croissants">
+    <div class="section-title">
+      <h2>Круассаны</h2>
+      <p>Слоистые, хрустящие, нежные</p>
+    </div>
+    <div class="grid-wrap">
+      <div class="card-grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+        <div class="card">
+          <div class="card-photo" style="height:260px;"><span class="photo-label">ФОТО</span></div>
+          <div class="card-body">
+            <h4>Фисташка — Клубника</h4>
+            <p>Идеальное сочетание нежной фисташки и яркой клубники внутри слоёного круассана</p>
+            <span class="card-price">По запросу</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-photo" style="height:260px;"><span class="photo-label">ФОТО</span></div>
+          <div class="card-body">
+            <h4>С заварным кремом и ягодами</h4>
+            <p>Воздушный заварной крем и свежие ягоды в хрустящем тесте</p>
+            <span class="card-price">По запросу</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><hr /></div>
+
+  <!-- ===== SECTION: COFFEE ===== -->
+  <div class="section-data" data-cat="coffee">
+    <div class="section-title">
+      <h2>Классическое кофе</h2>
+      <p>Основа нашего меню напитков</p>
+    </div>
+    <div class="grid-wrap">
+      <div class="drinks-grid">
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Эспрессо</h4>
+            <span class="drink-price">220 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Американо</h4>
+            <p>0,2 л</p>
+            <span class="drink-price">220 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Капучино</h4>
+            <p>0,2 л — 240 ₽ / 0,3 л — 350 ₽ / 0,4 л — 450 ₽</p>
+            <span class="drink-price">от 240 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Латте</h4>
+            <p>0,3 л — 300 ₽ / 0,4 л — 400 ₽</p>
+            <span class="drink-price">от 300 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Флэт Уайт</h4>
+            <p>0,2 л</p>
+            <span class="drink-price">290 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Раф</h4>
+            <p>0,3 л — 350 ₽ / 0,4 л — 450 ₽</p>
+            <span class="drink-price">от 350 ₽</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><hr /></div>
+
+  <!-- ===== SECTION: AUTHOR ===== -->
+  <div class="section-data" data-cat="author">
+    <div class="section-title">
+      <h2>Авторские напитки</h2>
+      <p>0,3 л — если не указано иное</p>
+    </div>
+    <div class="grid-wrap">
+      <div class="drinks-grid">
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Аффогато</h4>
+            <p>Шоколадно-арахисовая паста, фисташки, ванильное мороженое, эспрессо</p>
+            <span class="drink-price">350 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Цветочная матча</h4>
+            <p>Кокосовое молоко, матча, лавандовый сироп</p>
+            <span class="drink-price">300 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Пышная ириска</h4>
+            <p>Молоко, сироп «Ириска», эспрессо, пенка маршмеллоу</p>
+            <span class="drink-price">320 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Крем-Брюле</h4>
+            <p>Молоко, сироп «Крем-Брюле», эспрессо, жженый сахар</p>
+            <span class="drink-price">280 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Латте «Тирамису»</h4>
+            <p>Молоко, эспрессо, сироп «Сливочный ликер», какао, савоярди</p>
+            <span class="drink-price">300 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Чай «Бора-Бора»</h4>
+            <p>Облепиха, грейпфрут, манго, маракуйя, мята, корица</p>
+            <span class="drink-price">300 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Чай «Красные ягоды»</h4>
+            <p>Клюква, вишня, клубника, мята, авторский чай «Дикая вишня»</p>
+            <span class="drink-price">300 ₽</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><hr /></div>
+
+  <!-- ===== SECTION: SEASONAL HOT ===== -->
+  <div class="section-data" data-cat="seasonal">
+    <div class="section-title">
+      <h2>Сезонное горячее</h2>
+      <p>Согревающие напитки этого сезона</p>
+    </div>
+    <div class="grid-wrap">
+      <div class="drinks-grid">
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Пряный мандарин</h4>
+            <p>Молоко, эспрессо, сироп «Пряный мандарин»</p>
+            <span class="drink-price">300 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Скандинавский глёг</h4>
+            <p>Вишневый сок, ром, гвоздика, бадьян, корица, брусника, клюква</p>
+            <span class="drink-price">320 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Глёг кофейный</h4>
+            <p>Скандинавский глёг с добавлением эспрессо</p>
+            <span class="drink-price">350 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Какао топинамбур</h4>
+            <p>Молоко, сироп топинамбура, какао</p>
+            <span class="drink-price">300 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Горячий шоколад</h4>
+            <p>Молоко, тёмный шоколад, пенка маршмеллоу</p>
+            <span class="drink-price">300 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Американо «Имбирный пряник»</h4>
+            <p>Кофе, вода, сироп «Апельсин-имбирь», корица</p>
+            <span class="drink-price">280 ₽</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><hr /></div>
+
+  <!-- ===== SECTION: ICE ===== -->
+  <div class="section-data" data-cat="ice">
+    <div class="section-title">
+      <h2>Айс / Летнее</h2>
+      <p>Освежающие напитки на льду</p>
+    </div>
+    <div class="grid-wrap">
+      <div class="drinks-grid">
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Айс-Латте</h4>
+            <p>Кофе, молоко, лед</p>
+            <span class="drink-price">320 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Бамбл</h4>
+            <p>Кофе, апельсиновый фреш, карамельный сироп, лед</p>
+            <span class="drink-price">360 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Лавандовый эспрессо тоник</h4>
+            <p>Кофе, тоник, лавандовый сироп, лимон, лед</p>
+            <span class="drink-price">300 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Фисташковый американо</h4>
+            <p>Кофе, вода, лед, сливки, фисташковая паста, ваниль</p>
+            <span class="drink-price">370 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Айс какао с шоколадом</h4>
+            <p>Какао, молоко, бельгийский шоколад, лед</p>
+            <span class="drink-price">380 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Айс матча с манго</h4>
+            <p>Матча, молоко, пюре манго, лед, сливки</p>
+            <span class="drink-price">340 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Айс ти жасмин-персик</h4>
+            <p>Зеленый чай, сироп персик, лимон, лед</p>
+            <span class="drink-price">300 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Мохито</h4>
+            <p>Лимон, лайм, мята, газированная вода, лед</p>
+            <span class="drink-price">350 ₽</span>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-photo"><span class="photo-label">ФОТО</span></div>
+          <div class="drink-body">
+            <h4>Санрайз</h4>
+            <p>Сироп гренадин, апельсиновый сок, газировка, лед</p>
+            <span class="drink-price">350 ₽</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CONTACTS ===== -->
+  <section class="contact-section" id="contacts">
+    <div class="contact-inner">
+      <div>
+        <div class="contact-brand">EXAMPLE_CAKES</div>
+        <p class="contact-tagline">Заходите к нам за вкусным кофе и авторскими тортами. Будем рады видеть вас каждый день.</p>
+
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="contact-detail">
+            <h5>Адрес</h5>
+            <p>г. Москва, ул. Розовая, д. 12, стр. 1<br/>Метро «Кузнецкий Мост», 3 мин пешком</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.61 4.32 2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17z"/></svg>
+          </div>
+          <div class="contact-detail">
+            <h5>Телефон</h5>
+            <p>+7 (999) 123-45-67</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><path d="M8 21h8m-4-4v4"/></svg>
+          </div>
+          <div class="contact-detail">
+            <h5>Соцсети</h5>
+            <p>@example_cakes</p>
+          </div>
+        </div>
+
+        <div style="margin-top:32px;">
+          <h5 style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#bbb;margin:0 0 10px;">Часы работы</h5>
+          <div class="hours-grid">
+            <div class="hours-row"><span>Пн–Пт</span><span>08:00–21:00</span></div>
+            <div class="hours-row"><span>Сб</span><span>09:00–22:00</span></div>
+            <div class="hours-row"><span>Вс</span><span>10:00–20:00</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="map-placeholder">
+          <span>КАРТА</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="brand">EXAMPLE_CAKES</span>
+    2025 EXAMPLE_CAKES. Все права защищены. Дизайн-концепция.
+  </footer>
+
+  <script>
+    function filterSection(cat, el) {
+      document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      const sections = document.querySelectorAll('.section-data');
+      if (cat === 'all') {
+        sections.forEach(s => s.style.display = '');
+        document.querySelectorAll('.divider').forEach(d => d.style.display = '');
+      } else {
+        sections.forEach(s => {
+          s.style.display = s.dataset.cat === cat ? '' : 'none';
+        });
+        document.querySelectorAll('.divider').forEach(d => d.style.display = 'none');
+      }
+    }
+  </script>
 </body>
 </html>
+
+
+

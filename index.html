@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -18,18 +19,18 @@
       --gray-photo: #D9D9D9;
     }
     * { box-sizing: border-box; }
+    
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
     body {
-      html, body {
-  overflow-x: hidden;
-  width: 100%;
-}
-body {
-  font-family: 'Open Sans', sans-serif;
-  background-color: var(--cream);
-  color: var(--text);
-  margin: 0;
-}
-
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--cream);
+      color: var(--text);
+      margin: 0;
+    }
+    .brand {
       font-family: 'Great Vibes', cursive;
       color: var(--pink);
     }
@@ -54,7 +55,7 @@ body {
     }
     .nav-brand {
       font-family: 'Great Vibes', cursive;
-      font-size: 1.5rem;
+      font-size: 2rem;
       color: var(--pink);
       letter-spacing: 0.01em;
       text-decoration: none;
@@ -95,7 +96,7 @@ body {
     }
     .hero h1 {
       font-family: 'Great Vibes', cursive;
-      font-size: clamp(2.2rem, 8vw, 4.5rem);
+      font-size: clamp(2.3rem, 10vw, 7rem);
       color: var(--pink);
       line-height: 1.1;
       margin: 0 0 20px;
@@ -481,13 +482,18 @@ body {
       border-top: 1px solid var(--pink-light);
     }
 
+    /* АДАПТИВНОСТЬ ДЛЯ ТЕЛЕФОНОВ И ПЛАНШЕТОВ */
     @media (max-width: 768px) {
+      .nav-inner { padding: 0 16px; }
+      .nav-brand { font-size: 1.6rem; }
+      .hero { padding: 48px 16px 36px; }
       .featured-card { flex-direction: column; }
       .featured-photo { width: 100%; min-height: 220px; border-radius: 28px 28px 0 0; }
       .featured-info { padding: 24px; }
       .contact-inner { grid-template-columns: 1fr; gap: 40px; }
-      .card-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
-      .drinks-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .card-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+      .drinks-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+      .grid-wrap, .cat-scroll, .section-title { padding-left: 16px; padding-right: 16px; }
     }
     @media (max-width: 480px) {
       .card-grid { grid-template-columns: 1fr 1fr; }
@@ -497,7 +503,6 @@ body {
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <div class="nav-inner">
       <a href="index.html" class="nav-brand">EXAMPLE_CAKES</a>
@@ -512,7 +517,6 @@ body {
     </div>
   </nav>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-tag">Кофейня и кондитерская</div>
     <h1>EXAMPLE_CAKES</h1>
@@ -520,7 +524,6 @@ body {
     <a href="#menu" class="btn-primary">Смотреть меню</a>
   </section>
 
-  <!-- CATEGORY PILLS -->
   <div class="cat-scroll" id="menu">
     <div class="cat-pill active" onclick="filterSection('all', this)">Все</div>
     <div class="cat-pill" onclick="filterSection('cakes', this)">Торты</div>
@@ -532,7 +535,6 @@ body {
     <div class="cat-pill" onclick="filterSection('ice', this)">Айс</div>
   </div>
 
-  <!-- ===== SECTION: TORTY ===== -->
   <div class="section-data" data-cat="cakes">
     <div class="section-title">
       <h2>Торты свыше 1 кг</h2>
@@ -601,7 +603,6 @@ body {
 
   <div class="divider"><hr /></div>
 
-  <!-- ===== SECTION: BENTO ===== -->
   <div class="section-data" data-cat="bento">
     <div class="section-title">
       <h2>Бенто-торты</h2>
@@ -647,7 +648,6 @@ body {
 
   <div class="divider"><hr /></div>
 
-  <!-- ===== SECTION: CROISSANTS ===== -->
   <div class="section-data" data-cat="croissants">
     <div class="section-title">
       <h2>Круассаны</h2>
@@ -677,7 +677,6 @@ body {
 
   <div class="divider"><hr /></div>
 
-  <!-- ===== SECTION: COFFEE ===== -->
   <div class="section-data" data-cat="coffee">
     <div class="section-title">
       <h2>Классическое кофе</h2>
@@ -738,7 +737,6 @@ body {
 
   <div class="divider"><hr /></div>
 
-  <!-- ===== SECTION: AUTHOR ===== -->
   <div class="section-data" data-cat="author">
     <div class="section-title">
       <h2>Авторские напитки</h2>
@@ -808,7 +806,6 @@ body {
 
   <div class="divider"><hr /></div>
 
-  <!-- ===== SECTION: SEASONAL HOT ===== -->
   <div class="section-data" data-cat="seasonal">
     <div class="section-title">
       <h2>Сезонное горячее</h2>
@@ -870,7 +867,6 @@ body {
 
   <div class="divider"><hr /></div>
 
-  <!-- ===== SECTION: ICE ===== -->
   <div class="section-data" data-cat="ice">
     <div class="section-title">
       <h2>Айс / Летнее</h2>
@@ -954,7 +950,6 @@ body {
     </div>
   </div>
 
-  <!-- ===== CONTACTS ===== -->
   <section class="contact-section" id="contacts">
     <div class="contact-inner">
       <div>
@@ -1032,6 +1027,3 @@ body {
   </script>
 </body>
 </html>
-
-
-
